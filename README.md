@@ -4,7 +4,7 @@ Idea scaffolds with easy persistence for your experimenting needs.
 
 # Idea
 
-**TLDR**: `$ ninja-script <idea-name>`
+**TLDR**: `$ nrb new <idea-name>`
 
 Say you want to validate some idea. Maybe crawl some page, API, or process some file. Whatever scratches your itch.
 
@@ -32,7 +32,7 @@ And now you have to do boilerplate for requiring files..
 
 > Fuck it, I'll just do a Rails App!
 
-Or you could just use `$ ninja-script <idea-name>` and not worry about anything!
+Or you could just use `$ nrb new <idea-name>` and not worry about anything!
 
 ## Installation
 
@@ -40,7 +40,7 @@ Or you could just use `$ ninja-script <idea-name>` and not worry about anything!
 
 ## Usage
 
-    $ ninja-script -h
+    $ nrb help
 
 ## TODO
 
