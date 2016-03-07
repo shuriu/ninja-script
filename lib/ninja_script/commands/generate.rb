@@ -3,7 +3,10 @@ module NinjaScript
     class Generate < Thor::Group
       include Thor::Actions
 
-      argument :path_or_folder_name
+      argument :path_or_folder_name, type: :string
+
+      class_option :repo,   default: true, type: :boolean
+      class_option :bundle, default: true, type: :boolean
 
       def self.source_root
         File.expand_path('..', __dir__)
@@ -32,6 +35,12 @@ module NinjaScript
           directories: NinjaScript.config.directories
       end
 
+      def directories
+        NinjaScript.config.directories.each do |dir|
+          create_file target("#{dir}/.keep")
+        end
+      end
+
       def boot
         template 'templates/config/boot.rb.tt', target('config/boot.rb')
       end
@@ -46,8 +55,18 @@ module NinjaScript
       end
 
       def initialize_repo
-        Dir.chdir(target) do
-          %x(git init)
+        return unless options[:repo]
+
+        inside target, verbose: true do
+          run 'git init'
+        end
+      end
+
+      def bundle_install
+        return unless options[:bundle]
+
+        inside target, verbose: true do
+          run 'bundle install'
         end
       end
 
