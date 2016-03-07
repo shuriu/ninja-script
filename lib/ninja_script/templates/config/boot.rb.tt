@@ -1,0 +1,25 @@
+# Setup the listed gems in the gemfile
+require 'bundler/setup'
+<%# TODO: Maybe add gemfile groups? %>
+# Actually require the gems
+Bundler.require(:default)
+
+# Set the project root
+NinjaScript.config.root = File.expand_path('..', __dir__)
+
+# Add the root to the load path
+$:.unshift(NinjaScript.root)
+
+# Require other configurations from the config/config.rb file
+require 'config/config'
+
+# Setup ActiveRecord
+require 'logger'
+ActiveRecord::Base.configurations = YAML.load_file('db/config.yml')
+ActiveRecord::Base.establish_connection(:development)
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+# Finally require files inside config.directories
+NinjaScript.config.directories.each do |dir|
+  Dir[File.join(dir, '*.rb')].each { |f| require(f) }
+end

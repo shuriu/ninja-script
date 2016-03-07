@@ -9,27 +9,52 @@ module NinjaScript
         File.expand_path('..', __dir__)
       end
 
+      def gitignore
+        template 'templates/.gitignore.tt', target('.gitignore')
+      end
+
+      def readme
+        template 'templates/README.md.tt', target('README.md'),
+          title: name
+      end
+
       def gemfile
-        target_path = File.join(target, 'Gemfile')
-        template 'templates/Gemfile.tt', target_path,
+        template 'templates/Gemfile.tt', target('Gemfile'),
           version: NinjaScript::VERSION
       end
 
-      def database_config
-        target_path = File.join(target, 'db/config.yml')
-        template 'templates/config.yml.tt', target_path,
+      def rakefile
+        template 'templates/Rakefile.tt', target('Rakefile')
+      end
+
+      def config
+        template 'templates/config/config.rb.tt', target('config/config.rb'),
+          directories: NinjaScript.config.directories
+      end
+
+      def boot
+        template 'templates/config/boot.rb.tt', target('config/boot.rb')
+      end
+
+      def db_config
+        template 'templates/db/config.yml.tt', target('db/config.yml'),
           db: name
       end
 
       def script_file
-        target_path = File.join(target, name)
-        template 'templates/script.tt', target_path
+        template 'templates/script.rb.tt', "#{target(name)}.rb"
+      end
+
+      def initialize_repo
+        Dir.chdir(target) do
+          %x(git init)
+        end
       end
 
       private
 
-      def target
-        File.expand_path(path_or_folder_name)
+      def target(final = nil)
+        File.join(File.expand_path(path_or_folder_name), final.to_s)
       end
 
       def name
