@@ -1,0 +1,3 @@
+class <%= config[:name] %> < ActiveRecord::Base
+
+end

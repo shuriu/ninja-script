@@ -2,10 +2,10 @@ require 'nrb/commands/inside_group'
 
 module Nrb
   module Commands
-    class Generate < InsideGroup
+    class Destroy < InsideGroup
 
       argument :resource, type: :string, required: true,
-        desc: 'resource to generate',
+        desc: 'resource to destroy',
         banner: 'RESOURCE',
         enum: Nrb.config.directories.map(&:singularize)
 
@@ -22,18 +22,12 @@ module Nrb
       end
 
       def generate_resource
-        template "templates/#{resource}.rb.tt", target("#{name.underscore}.rb"),
-          name: name.camelize
-      end
+        remove_file target("#{name.underscore}.rb")
 
-      def create_table
-        return unless resource == 'model'
-
-        migration_name = "create_#{name.underscore.pluralize}"
-        options = args.join(' ')
-
-        inside Nrb.root do
-          run "rake db:new_migration name=#{migration_name} options='#{options}'"
+        # Also remove the *_create_resource migration
+        if resource == 'model'
+          migration_file = Dir["db/migrate/*create_#{name.underscore.pluralize}.rb"].first
+          remove_file migration_file if migration_file
         end
       end
 
