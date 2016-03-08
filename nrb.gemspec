@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["shuriu"]
   spec.email         = ["stefan.rotariu@gmail.com"]
 
-  spec.summary       = %q{Idea scaffolds with easy persistence for your experimenting needs.}
+  spec.summary       = %q{Ninja scripts with easy persistence for your experimenting needs.}
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
-  # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/shuriu/nrb"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -31,9 +31,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_dependency "thor", "~> 0.19.1"
-  spec.add_dependency "pry", "~> 0.10"
-  spec.add_dependency "pry-byebug", "~> 3.3"
-  spec.add_dependency "binding_of_caller", "~> 0.7"
-  spec.add_dependency "standalone_migrations", "~> 4.0"
-  spec.add_dependency "sqlite3", "~> 1.3"
+  spec.add_dependency "pry"
+  spec.add_dependency "pry-byebug"
+  spec.add_dependency "binding_of_caller"
+  spec.add_dependency "standalone_migrations", "~> 4.0.3"
+  spec.add_dependency "sqlite3", "~> 1.3.11"
 end
