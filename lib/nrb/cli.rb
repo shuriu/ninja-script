@@ -10,23 +10,23 @@ require 'nrb/commands/destroy'
 module Nrb
   class CLI < Thor
     register Nrb::Commands::Script, 'new', 'new <name-or-path> [OPTIONS]',
-      'Creates a Ninja Ruby Script at the given path'
+      Nrb::Commands::Script.desc
     tasks['new'].options = Nrb::Commands::Script.class_options
 
     register Nrb::Commands::Starter, 'start', '[s]tart',
-      'Require the main file when inside a NinjaRuby folder'
+      Nrb::Commands::Starter.desc
     map 's' => :start
 
     register Nrb::Commands::Console, 'console', '[c]onsole',
-      'Jump into a Pry console when inside a NinjaRuby folder'
+      Nrb::Commands::Console.desc
     map 'c' => :console
 
     register Nrb::Commands::Generate, 'generate', '[g]enerate <resource> <name>',
-      "Generate a resource (#{Nrb.config.directories.join(', ')})"
+      Nrb::Commands::Generate.desc
     map 'g' => :generate
 
     register Nrb::Commands::Destroy, 'destroy', '[d]estroy <resource> <name>',
-      "Destroy a resource (#{Nrb.config.directories.join(', ')})"
+      Nrb::Commands::Destroy.desc
     map 'd' => :destroy
   end
 end

@@ -3,6 +3,7 @@ require 'nrb/commands/inside_group'
 module Nrb
   module Commands
     class Generate < InsideGroup
+      desc_with_warning "Generate a resource (#{Nrb.config.directories.join(', ')})"
 
       argument :resource, type: :string, required: true,
         desc: 'resource to generate',

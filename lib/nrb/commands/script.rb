@@ -3,7 +3,7 @@ module Nrb
     class Script < Thor::Group
       include Thor::Actions
 
-      desc 'Creates a Ninja Ruby Script at the given path.'
+      desc 'Creates a Ninja Ruby Script at the given path'
 
       argument :path_or_folder_name, type: :string, required: true,
         desc: 'The name of the project, or the path.'
@@ -25,7 +25,8 @@ module Nrb
 
       def readme
         template 'templates/README.md.tt', target('README.md'),
-          title: name
+          title: name,
+          version: Nrb::VERSION
       end
 
       def gemfile

@@ -3,6 +3,14 @@ module Nrb
     class InsideGroup < Thor::Group
       include Thor::Actions
 
+      def self.warning
+        'NOTE: Available inside a NinjaRuby project' unless Nrb.inside?
+      end
+
+      def self.desc_with_warning(description)
+        self.desc [description, warning].compact.join('. ')
+      end
+
       def self.source_root
         File.expand_path('..', __dir__)
       end

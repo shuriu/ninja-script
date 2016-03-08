@@ -3,6 +3,7 @@ require 'nrb/commands/inside_group'
 module Nrb
   module Commands
     class Destroy < InsideGroup
+      desc_with_warning "Destroy a generated resource"
 
       argument :resource, type: :string, required: true,
         desc: 'resource to destroy',
