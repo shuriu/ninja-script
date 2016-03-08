@@ -1,6 +1,6 @@
 # Ninja Ruby - Nrb
 
-Idea scaffolds with easy persistence for your experimenting needs.
+Ninja Ruby scripts with easy persistence for your experimenting needs
 
 # Idea
 
