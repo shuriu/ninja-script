@@ -4,11 +4,11 @@ require 'pry-byebug'
 require 'standalone_migrations'
 require 'sqlite3'
 
-require 'ninja_script/version'
-require 'ninja_script/cli'
+require 'nrb/version'
+require 'nrb/cli'
 require 'ostruct'
 
-module NinjaScript
+module Nrb
   class Configuration < OpenStruct; end
 
   class << self
@@ -25,6 +25,6 @@ module NinjaScript
   end
 end
 
-NinjaScript.configure do |config|
+Nrb.configure do |config|
   config.directories = %w(models services)
 end

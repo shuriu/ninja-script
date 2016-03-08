@@ -5,10 +5,10 @@ require 'bundler/setup'
 Bundler.require(:default)
 
 # Set the project root
-NinjaScript.config.root = File.expand_path('..', __dir__)
+Nrb.config.root = File.expand_path('..', __dir__)
 
 # Add the root to the load path
-$:.unshift(NinjaScript.root)
+$:.unshift(Nrb.root)
 
 # Require other configurations from the config/config.rb file
 require 'config/config'
@@ -20,6 +20,6 @@ ActiveRecord::Base.establish_connection(:development)
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 # Finally require files inside config.directories
-NinjaScript.config.directories.each do |dir|
+Nrb.config.directories.each do |dir|
   Dir[File.join(dir, '*.rb')].each { |f| require(f) }
 end

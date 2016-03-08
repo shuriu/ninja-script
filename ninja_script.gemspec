@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ninja_script/version'
+require 'nrb/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ninja_script"
-  spec.version       = NinjaScript::VERSION
+  spec.name          = "nrb"
+  spec.version       = Nrb::VERSION
   spec.authors       = ["shuriu"]
   spec.email         = ["stefan.rotariu@gmail.com"]
 

@@ -1,4 +1,4 @@
-module NinjaScript
+module Nrb
   module Commands
     class Generate < Thor::Group
       include Thor::Actions
@@ -23,7 +23,7 @@ module NinjaScript
 
       def gemfile
         template 'templates/Gemfile.tt', target('Gemfile'),
-          version: NinjaScript::VERSION
+          version: Nrb::VERSION
       end
 
       def rakefile
@@ -32,11 +32,11 @@ module NinjaScript
 
       def config
         template 'templates/config/config.rb.tt', target('config/config.rb'),
-          directories: NinjaScript.config.directories
+          directories: Nrb.config.directories
       end
 
       def directories
-        NinjaScript.config.directories.each do |dir|
+        Nrb.config.directories.each do |dir|
           create_file target("#{dir}/.keep")
         end
       end
