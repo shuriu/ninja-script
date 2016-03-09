@@ -1,4 +1,4 @@
-# Ninja Ruby - Nrb
+# Ninja Ruby - Nrb [![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb)
 
 Ninja Ruby scripts with easy persistence for your experimenting needs
 
