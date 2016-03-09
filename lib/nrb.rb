@@ -4,6 +4,7 @@ require 'binding_of_caller'
 require 'pry-byebug'
 require 'standalone_migrations'
 require 'sqlite3'
+require 'nrb/errors'
 require 'nrb/version'
 
 module Nrb

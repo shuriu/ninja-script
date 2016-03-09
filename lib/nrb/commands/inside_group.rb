@@ -16,7 +16,7 @@ module Nrb
       end
 
       def check_inside?
-        return if Nrb.inside?
+        return true if Nrb.inside?
         say_with_command(self.class.to_s)
       end
 
@@ -24,8 +24,8 @@ module Nrb
 
       def say_with_command(command)
         command = command.split('::').last
-        say "You need to be inside a NinjaRuby folder to run the #{command} command."
-        exit 1
+        message = "You need to be inside a NinjaRuby folder to run the #{command} command."
+        fail Nrb::OutsideProjectRootError, message
       end
 
       def require_main_file
