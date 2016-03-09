@@ -1,3 +1,4 @@
 module Nrb
-  class OutsideProjectRootError < Thor::Error; end;
+  class OutsideRootError < Thor::Error; end;
+  class InvalidResourceError < Thor::Error; end;
 end

@@ -11,7 +11,7 @@ class NrbTest < Minitest::Test
 
   def test_setting_configs
     Nrb.config.my_setting = 42
-    assert_equal Nrb.config.my_setting, 42
+    assert_equal 42, Nrb.config.my_setting
   end
 
   def test_default_resources
@@ -27,18 +27,18 @@ class NrbTest < Minitest::Test
   def test_root_when_config_empty
     Nrb.config.root = nil
     current_path = Dir.pwd
-    assert_equal Nrb.root, current_path
+    assert_equal current_path, Nrb.root
   end
 
   def test_inside_when_outside
     Dir.chdir(__dir__) do
-      assert_equal Nrb.inside?, false
+      assert_equal false, Nrb.inside?
     end
   end
 
   def test_inside_when_inside
     Dir.chdir(fixture_path) do
-      assert_equal Nrb.inside?, true
+      assert_equal true, Nrb.inside?
     end
   end
 end

@@ -25,7 +25,7 @@ module Nrb
       def say_with_command(command)
         command = command.split('::').last
         message = "You need to be inside a NinjaRuby folder to run the #{command} command."
-        fail Nrb::OutsideProjectRootError, message
+        fail Nrb::OutsideRootError, message
       end
 
       def require_main_file

@@ -8,11 +8,11 @@ class Nrb::CLITest < Minitest::Test
 
   def test_has_valid_version
     version = bin_nrb '-v'
-    assert_equal version, Nrb::VERSION
+    assert_equal Nrb::VERSION, version
   end
 
   def test_has_required_commands
-    required = %w(new generate destroy start console).sort
-    assert_equal Nrb::CLI.tasks.keys.sort, required
+    required = %w(new generate destroy start console)
+    assert_equal required.sort, Nrb::CLI.tasks.keys.sort
   end
 end

@@ -16,9 +16,9 @@ module Nrb
 
       def valid_resource?
         valid_resources = Nrb.config.resources.map(&:singularize)
-        return if valid_resources.include? resource
-        say "RESOURCE must be one of: #{valid_resources.join(', ')}."
-        exit
+        return true if valid_resources.include? resource
+        message = "RESOURCE must be one of: #{valid_resources.join(', ')}."
+        fail Nrb::InvalidResourceError, message
       end
 
       def generate_resource
@@ -26,7 +26,7 @@ module Nrb
           name: name.camelize
       end
 
-      def create_table
+      def generate_table
         return unless resource == 'model'
 
         migration_name = "create_#{name.underscore.pluralize}"

@@ -16,19 +16,19 @@ module Nrb
 
       def valid_resource?
         valid_resources = Nrb.config.resources.map(&:singularize)
-        return if valid_resources.include? resource
-        say "RESOURCE must be one of: #{valid_resources.join(', ')}."
-        exit
+        return true if valid_resources.include? resource
+        message = "RESOURCE must be one of: #{valid_resources.join(', ')}."
+        fail Nrb::InvalidResourceError, message
       end
 
-      def generate_resource
+      def destroy_resource
         remove_file target("#{name.underscore}.rb")
+      end
 
-        # Also remove the *_create_resource migration
-        if resource == 'model'
-          migration_file = Dir["db/migrate/*create_#{name.underscore.pluralize}.rb"].first
-          remove_file migration_file if migration_file
-        end
+      def destroy_migration
+        return false unless resource == 'model'
+        migration_file = Dir["db/migrate/*_create_#{name.underscore.pluralize}.rb"].first
+        remove_file migration_file if migration_file
       end
 
       private
