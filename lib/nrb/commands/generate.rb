@@ -22,18 +22,21 @@ module Nrb
       end
 
       def generate_resource
-        template "templates/#{resource}.rb.tt", target("#{name.underscore}.rb"),
+        binding.pry
+
+        template "templates/#{resource}.rb.tt", target("#{name.underscore}.rb"), options.merge({
           name: name.camelize
+        })
       end
 
       def generate_table
         return unless resource == 'model'
 
         migration_name = "create_#{name.underscore.pluralize}"
-        options = args.join(' ')
+        rake_options = args.join(' ')
 
-        inside Nrb.root do
-          run "rake db:new_migration name=#{migration_name} options='#{options}'"
+        inside Nrb.root, options do
+          run "rake db:new_migration name=#{migration_name} options='#{rake_options}'"
         end
       end
 

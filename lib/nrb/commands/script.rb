@@ -18,66 +18,73 @@ module Nrb
         aliases: '-b'
       class_option :local, default: false, type: :boolean,
         desc: 'Add local path of the gem when generating the Gemfile. Useful for testing'
+      class_option :verbose, type: :boolean, default: true,
+        desc: 'Verbose mode',
+        aliases: '-v'
 
       def self.source_root
         File.expand_path('..', __dir__)
       end
 
       def gitignore
-        template 'templates/.gitignore.tt', target('.gitignore')
+        template 'templates/.gitignore.tt', target('.gitignore'), options
       end
 
       def readme
-        template 'templates/README.md.tt', target('README.md'),
+        template 'templates/README.md.tt', target('README.md'), options.merge({
           title: name,
           version: Nrb::VERSION
+        })
       end
 
       def gemfile
-        template 'templates/Gemfile.tt', target('Gemfile'),
+        template 'templates/Gemfile.tt', target('Gemfile'), options.merge({
           nrb_gem: nrb_gem
+        })
       end
 
       def rakefile
-        template 'templates/Rakefile.tt', target('Rakefile')
+        template 'templates/Rakefile.tt', target('Rakefile'), options
       end
 
       def config_nrb
-        template 'templates/config/nrb.rb.tt', target('config/nrb.rb'),
+        template 'templates/config/nrb.rb.tt', target('config/nrb.rb'), options.merge({
           resources: Nrb.config.resources
+        })
       end
 
       def resources
         Nrb.config.resources.each do |dir|
-          create_file target("#{dir}/.keep")
+          create_file target("#{dir}/.keep"), options
         end
       end
 
       def boot
-        template 'templates/config/boot.rb.tt', target('config/boot.rb')
+        template 'templates/config/boot.rb.tt', target('config/boot.rb'), options
       end
 
       def db_config
-        template 'templates/db/config.yml.tt', target('db/config.yml'),
+        template 'templates/db/config.yml.tt', target('db/config.yml'), options.merge({
           db: name
+        })
       end
 
       def script_file
-        template 'templates/script.rb.tt', "#{target(name)}.rb"
+        template 'templates/script.rb.tt', "#{target(name)}.rb", options
       end
 
       def initialize_repo
-        return unless options[:repo]
+        return unless options[:init_repo]
 
-        inside target, verbose: true do
+        inside target, options do
           run 'git init'
         end
       end
 
       def bundle_install
-        return unless options[:bundle]
+        return unless options[:bundle_install]
 
-        inside target, verbose: true do
+        inside target, options do
           run 'bundle install'
         end
       end

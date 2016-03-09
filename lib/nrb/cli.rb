@@ -9,6 +9,10 @@ require 'nrb/commands/destroy'
 
 module Nrb
   class CLI < Thor
+    class_option :verbose, type: :boolean, default: true,
+      desc: 'Verbose mode',
+      aliases: '-v'
+
     register Nrb::Commands::Script, 'new', 'new <name-or-path> [OPTIONS]',
       Nrb::Commands::Script.desc
     tasks['new'].options = Nrb::Commands::Script.class_options

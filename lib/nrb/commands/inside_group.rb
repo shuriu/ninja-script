@@ -3,6 +3,10 @@ module Nrb
     class InsideGroup < Thor::Group
       include Thor::Actions
 
+      class_option :verbose, type: :boolean, default: true,
+        desc: 'Verbose mode',
+        aliases: '-v'
+
       def self.warning
         'NOTE: Available inside a NinjaRuby project' unless Nrb.inside?
       end

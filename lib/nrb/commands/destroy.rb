@@ -22,13 +22,13 @@ module Nrb
       end
 
       def destroy_resource
-        remove_file target("#{name.underscore}.rb")
+        remove_file target("#{name.underscore}.rb"), options
       end
 
       def destroy_migration
         return false unless resource == 'model'
         migration_file = Dir["db/migrate/*_create_#{name.underscore.pluralize}.rb"].first
-        remove_file migration_file if migration_file
+        remove_file migration_file, options if migration_file
       end
 
       private

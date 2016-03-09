@@ -1,4 +1,7 @@
 require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   coverage_dir  'test/coverage'
   add_filter    '/test/'
@@ -10,6 +13,7 @@ SimpleCov.start do
     end
   end
 end
+Coveralls.wear!
 
 require 'bundler/setup'
 require 'nrb'
