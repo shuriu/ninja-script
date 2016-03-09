@@ -22,8 +22,6 @@ module Nrb
       end
 
       def generate_resource
-        binding.pry
-
         template "templates/#{resource}.rb.tt", target("#{name.underscore}.rb"), options.merge({
           name: name.camelize
         })
