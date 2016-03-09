@@ -31,7 +31,7 @@ module Nrb
 end
 
 Nrb.configure do |config|
-  config.directories = %w(models services)
+  config.resources = %w(models services)
 end
 
 require 'nrb/cli'

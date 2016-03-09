@@ -3,20 +3,19 @@ require 'nrb/commands/inside_group'
 module Nrb
   module Commands
     class Generate < InsideGroup
-      desc_with_warning "Generate a resource (#{Nrb.config.directories.join(', ')})"
+      desc_with_warning "Generate a resource (#{Nrb.config.resources.join(', ')})"
 
       argument :resource, type: :string, required: true,
         desc: 'resource to generate',
         banner: 'RESOURCE',
-        enum: Nrb.config.directories.map(&:singularize)
-
+        enum: Nrb.config.resources.map(&:singularize)
 
       argument :name, type: :string, required: true,
         desc: 'name of the resource',
         banner: 'NAME'
 
       def valid_resource?
-        valid_resources = Nrb.config.directories.map(&:singularize)
+        valid_resources = Nrb.config.resources.map(&:singularize)
         return if valid_resources.include? resource
         say "RESOURCE must be one of: #{valid_resources.join(', ')}."
         exit

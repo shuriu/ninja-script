@@ -110,8 +110,8 @@ Nrb.configure do |config|
   # Root of the script folder
   config.root = File.expand_path('..', __dir__)
 
-  # Default directories to autoload
-  # config.directories = %w(models services)
+  # Default resources to autoload
+  # config.resources = %w(models services)
 end
 ```
 

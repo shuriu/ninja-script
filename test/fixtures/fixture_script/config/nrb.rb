@@ -3,5 +3,5 @@ Nrb.configure do |config|
   config.root = File.expand_path('..', __dir__)
 
   # Default resources to autoload
-  # config.resources = %w(<%= config[:resources].join(' ') %>)
+  # config.resources = %w(models services)
 end

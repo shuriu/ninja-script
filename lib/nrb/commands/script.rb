@@ -40,11 +40,11 @@ module Nrb
 
       def config_nrb
         template 'templates/config/nrb.rb.tt', target('config/nrb.rb'),
-          directories: Nrb.config.directories
+          resources: Nrb.config.resources
       end
 
-      def directories
-        Nrb.config.directories.each do |dir|
+      def resources
+        Nrb.config.resources.each do |dir|
           create_file target("#{dir}/.keep")
         end
       end
