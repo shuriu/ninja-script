@@ -7,7 +7,12 @@ require 'sqlite3'
 require 'nrb/version'
 
 module Nrb
-  class Configuration < OpenStruct; end
+  class Configuration < OpenStruct
+    def initialize(*args)
+      super
+      self.resources = %w(models services)
+    end
+  end
 
   class << self
     def config
@@ -30,8 +35,8 @@ module Nrb
   end
 end
 
-Nrb.configure do |config|
-  config.resources = %w(models services)
-end
+# Nrb.configure do |config|
+#   config.resources = %w(models services)
+# end
 
 require 'nrb/cli'
