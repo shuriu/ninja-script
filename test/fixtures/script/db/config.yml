@@ -2,4 +2,4 @@ development:
   adapter:  sqlite3
   pool:     5
   timeout:  5000
-  database: db/fixture_script.sqlite3
+  database: db/script.sqlite3

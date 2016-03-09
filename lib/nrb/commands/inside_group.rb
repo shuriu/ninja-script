@@ -17,12 +17,16 @@ module Nrb
 
       def check_inside?
         return if Nrb.inside?
-        klass_name = self.class.to_s.split('::').last
-        say "You need to be inside a NinjaRuby folder to run the #{klass_name} command."
-        exit
+        say_with_command(self.class.to_s)
       end
 
       private
+
+      def say_with_command(command)
+        command = command.split('::').last
+        say "You need to be inside a NinjaRuby folder to run the #{command} command."
+        exit 1
+      end
 
       def require_main_file
         assumed_file_name = "#{Nrb.root.split('/').last}.rb"
@@ -30,9 +34,6 @@ module Nrb
 
         if File.exist?(assumed_file_path)
           require File.join(Nrb.root, assumed_file_name)
-        else
-          say 'Could not load file :(.'
-          exit
         end
       end
     end

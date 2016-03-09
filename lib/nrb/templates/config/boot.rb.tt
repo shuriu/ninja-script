@@ -8,7 +8,7 @@ Bundler.require(:default)
 Nrb.config.root = File.expand_path('..', __dir__)
 
 # Add the root to the load path
-$:.unshift(Nrb.root)
+$:.unshift(Nrb.root) unless $:.include?(Nrb.root)
 
 # Require other configurations from the config/nrb.rb file
 require 'config/nrb'

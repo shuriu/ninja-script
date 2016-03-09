@@ -21,6 +21,7 @@ class NrbTest < Minitest::Test
   def test_root_by_config
     Nrb.config.root = 'my_root'
     assert_equal Nrb.root, 'my_root'
+    Nrb.config.root = nil
   end
 
   def test_root_when_config_empty
@@ -36,7 +37,7 @@ class NrbTest < Minitest::Test
   end
 
   def test_inside_when_inside
-    Dir.chdir(@@fixture_path) do
+    Dir.chdir(fixture_path) do
       assert_equal Nrb.inside?, true
     end
   end

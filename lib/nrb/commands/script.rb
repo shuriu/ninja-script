@@ -1,3 +1,5 @@
+require 'pathname'
+
 module Nrb
   module Commands
     class Script < Thor::Group
@@ -14,6 +16,8 @@ module Nrb
       class_option :bundle_install, default: true, type: :boolean,
         desc: 'Run bundle install after generating the skeleton',
         aliases: '-b'
+      class_option :local, default: false, type: :boolean,
+        desc: 'Add local path of the gem when generating the Gemfile. Useful for testing'
 
       def self.source_root
         File.expand_path('..', __dir__)
@@ -31,7 +35,7 @@ module Nrb
 
       def gemfile
         template 'templates/Gemfile.tt', target('Gemfile'),
-          version: Nrb::VERSION
+          nrb_gem: nrb_gem
       end
 
       def rakefile
@@ -79,6 +83,19 @@ module Nrb
       end
 
       private
+
+      def nrb_gem
+        text = "gem 'nrb', '#{Nrb::VERSION}'"
+
+        if options.local
+          local_gem_path = Pathname.new(File.expand_path('../../..', __dir__))
+          target_path    = Pathname.new(target)
+          relative_path  = local_gem_path.relative_path_from(target_path)
+          text << ", path: '#{relative_path}'"
+        end
+
+        text
+      end
 
       def target(final = nil)
         File.join(File.expand_path(path_or_folder_name), final.to_s)
