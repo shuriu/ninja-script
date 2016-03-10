@@ -55,6 +55,14 @@ class Nrb::Commands::ScriptTest < Minitest::Test
     assert_equal true, File.exist?(file)
   end
 
+  def test_generated_resources
+    @invoker.invoke(:resources)
+    Nrb.config.resources.each do |res|
+      file_path = File.join(@full_path, res, '.keep')
+      assert_equal true, File.exist?(file_path)
+    end
+  end
+
   def test_bundle_install
     other_invoker = Nrb::Commands::Script.new([@full_path], {
       verbose: false, init_repo: false, bundle_install: true, local: true
