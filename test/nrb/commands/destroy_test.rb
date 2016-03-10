@@ -4,8 +4,8 @@ class Nrb::Commands::DestroyTest < Minitest::Test
   def setup
     @resource        = 'model'
     @name            = 'foo_bar'
-    @generator       = Nrb::Commands::Generate.new([@resource, @name])
-    @destroyer       = Nrb::Commands::Destroy.new([@resource, @name])
+    @generator       = Nrb::Commands::Generate.new([@resource, @name], { verbose: false })
+    @destroyer       = Nrb::Commands::Destroy.new([@resource, @name], { verbose: false })
     @initial_dir     = Dir.pwd
 
     Dir.chdir(fixture_path)
@@ -16,12 +16,12 @@ class Nrb::Commands::DestroyTest < Minitest::Test
   end
 
   def test_works_for_valid_resources
-    @destroyer.invoke(:valid_resource?)
+    @destroyer.invoke(:ensure_valid_resource)
   end
 
   def test_doesnt_work_for_invalid_resources
     assert_raises Nrb::InvalidResourceError do
-      Nrb::Commands::Destroy.new(['foo', 'foo']).invoke(:valid_resource?)
+      Nrb::Commands::Destroy.new(['foo', 'foo']).invoke(:ensure_valid_resource)
     end
   end
 

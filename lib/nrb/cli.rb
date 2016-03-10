@@ -1,16 +1,12 @@
 require 'pry'
 require 'binding_of_caller'
 require 'thor'
-require 'nrb/commands/script'
-require 'nrb/commands/starter'
-require 'nrb/commands/console'
-require 'nrb/commands/generate'
-require 'nrb/commands/destroy'
+require 'nrb/commands/all'
 
 module Nrb
   class CLI < Thor
     class_option :verbose, type: :boolean, default: true,
-      desc: 'Verbose mode',
+      desc:    'Verbose mode.',
       aliases: '-v'
 
     register Nrb::Commands::Script, 'new', 'new <name-or-path> [OPTIONS]',

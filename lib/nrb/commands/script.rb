@@ -5,7 +5,7 @@ module Nrb
     class Script < Thor::Group
       include Thor::Actions
 
-      desc 'Creates a Ninja Ruby Script at the given path'
+      desc 'Creates a Ninja Ruby Script at the given path.'
 
       argument :path_or_folder_name, type: :string, required: true,
         desc: 'The name of the project, or the path.'
@@ -13,13 +13,16 @@ module Nrb
       class_option :init_repo, default: true, type: :boolean,
         desc: 'Initialize a repository at the target location',
         aliases: '-r'
+
       class_option :bundle_install, default: true, type: :boolean,
         desc: 'Run bundle install after generating the skeleton',
         aliases: '-b'
+
       class_option :local, default: false, type: :boolean,
         desc: 'Add local path of the gem when generating the Gemfile. Useful for testing'
+
       class_option :verbose, type: :boolean, default: true,
-        desc: 'Verbose mode',
+        desc: 'Verbose mode.',
         aliases: '-v'
 
       def self.source_root
@@ -31,16 +34,16 @@ module Nrb
       end
 
       def readme
-        template 'templates/README.md.tt', target('README.md'), options.merge({
-          title: name,
-          version: Nrb::VERSION
-        })
+        template 'templates/README.md.tt', target('README.md'),
+          options.merge({
+            title: name,
+            version: Nrb::VERSION
+          })
       end
 
       def gemfile
-        template 'templates/Gemfile.tt', target('Gemfile'), options.merge({
-          nrb_gem: nrb_gem
-        })
+        template 'templates/Gemfile.tt', target('Gemfile'),
+          options.merge({ nrb_gem: nrb_gem })
       end
 
       def rakefile
@@ -48,9 +51,8 @@ module Nrb
       end
 
       def config_nrb
-        template 'templates/config/nrb.rb.tt', target('config/nrb.rb'), options.merge({
-          resources: Nrb.config.resources
-        })
+        template 'templates/config/nrb.rb.tt', target('config/nrb.rb'),
+          options.merge({ resources: Nrb.config.resources })
       end
 
       def resources
@@ -64,9 +66,8 @@ module Nrb
       end
 
       def db_config
-        template 'templates/db/config.yml.tt', target('db/config.yml'), options.merge({
-          db: name
-        })
+        template 'templates/db/config.yml.tt', target('db/config.yml'),
+          options.merge({ db: name })
       end
 
       def script_file
@@ -94,7 +95,7 @@ module Nrb
       def nrb_gem
         text = "gem 'nrb', '#{Nrb::VERSION}'"
 
-        if options.local
+        if options[:local]
           local_gem_path = Pathname.new(File.expand_path('../../..', __dir__))
           target_path    = Pathname.new(target)
           relative_path  = local_gem_path.relative_path_from(target_path)

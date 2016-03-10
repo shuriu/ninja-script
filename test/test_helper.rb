@@ -1,21 +1,6 @@
-require 'simplecov'
-require 'coveralls'
-
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start do
-  coverage_dir  'test/coverage'
-  add_filter    '/test/'
-  add_group     'Commands', 'lib/nrb/commands'
-  add_group     'Changed' do |source_file|
-    `git status --untracked=all --porcelain`.split("\n").detect do |status_and_filename|
-      _, filename = status_and_filename.split(' ', 2)
-      source_file.filename.ends_with?(filename)
-    end
-  end
-end
-Coveralls.wear!
-
 require 'bundler/setup'
+require 'coveralls'
+Coveralls.wear!
 require 'nrb'
 
 require 'minitest/autorun'

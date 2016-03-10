@@ -33,6 +33,15 @@ module Nrb
 
       !!(File.read(gemfile) =~ /gem\s+['"]nrb['"]/)
     end
+
+    def silently(verbose: false)
+      yield and return if verbose
+
+      original_stdout = $stdout.clone
+      $stdout.reopen '/dev/null'
+      yield
+      $stdout.reopen original_stdout
+    end
   end
 end
 

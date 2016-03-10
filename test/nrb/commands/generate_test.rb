@@ -2,10 +2,10 @@ require 'test_helper'
 
 class Nrb::Commands::GenerateTest < Minitest::Test
   def setup
-    @resource        = 'model'
-    @name            = 'foo_bar'
-    @generator       = Nrb::Commands::Generate.new([@resource, @name])
-    @initial_dir     = Dir.pwd
+    @resource    = 'model'
+    @name        = 'foo_bar'
+    @generator   = Nrb::Commands::Generate.new([@resource, @name], { verbose: false })
+    @initial_dir = Dir.pwd
 
     Dir.chdir(fixture_path)
   end
@@ -15,12 +15,12 @@ class Nrb::Commands::GenerateTest < Minitest::Test
   end
 
   def test_works_for_valid_resources
-    @generator.invoke(:valid_resource?)
+    @generator.invoke(:ensure_valid_resource)
   end
 
   def test_doesnt_work_for_invalid_resources
     assert_raises Nrb::InvalidResourceError do
-      Nrb::Commands::Generate.new(['foo', 'foo']).invoke(:valid_resource?)
+      Nrb::Commands::Generate.new(['foo', 'foo']).invoke(:ensure_valid_resource)
     end
   end
 
