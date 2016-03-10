@@ -2,91 +2,84 @@ require 'pathname'
 
 module Nrb
   module Commands
-    class Script < Thor::Group
-      include Thor::Actions
-
+    class Script < Commands::Base
       desc 'Creates a Ninja Ruby Script at the given path.'
 
       argument :path_or_folder_name, type: :string, required: true,
         desc: 'The name of the project, or the path.'
 
       class_option :init_repo, default: true, type: :boolean,
-        desc: 'Initialize a repository at the target location',
+        desc: 'Initialize a repository at the target location.',
         aliases: '-r'
 
-      class_option :bundle_install, default: true, type: :boolean,
-        desc: 'Run bundle install after generating the skeleton',
+      class_option :bundle_install, default: false, type: :boolean,
+        desc: 'Run bundle install after generating the skeleton.',
         aliases: '-b'
 
       class_option :local, default: false, type: :boolean,
-        desc: 'Add local path of the gem when generating the Gemfile. Useful for testing'
-
-      class_option :verbose, type: :boolean, default: true,
-        desc: 'Verbose mode.',
-        aliases: '-v'
-
-      def self.source_root
-        File.expand_path('..', __dir__)
-      end
+        desc: 'Add local path of the gem when generating the Gemfile. Useful for testing.'
 
       def gitignore
-        template 'templates/.gitignore.tt', target('.gitignore'), options
+        template 'templates/.gitignore.tt', target('.gitignore'), opts
       end
 
       def readme
         template 'templates/README.md.tt', target('README.md'),
-          options.merge({
-            title: name,
-            version: Nrb::VERSION
-          })
+          opts.merge({ title: name, version: Nrb::VERSION })
       end
 
       def gemfile
         template 'templates/Gemfile.tt', target('Gemfile'),
-          options.merge({ nrb_gem: nrb_gem })
+          opts.merge({ nrb_gem: nrb_gem })
       end
 
       def rakefile
-        template 'templates/Rakefile.tt', target('Rakefile'), options
+        template 'templates/Rakefile.tt', target('Rakefile'), opts
       end
 
       def config_nrb
         template 'templates/config/nrb.rb.tt', target('config/nrb.rb'),
-          options.merge({ resources: Nrb.config.resources })
+          opts.merge({ resources: Nrb.config.resources })
       end
 
       def resources
         Nrb.config.resources.each do |dir|
-          create_file target("#{dir}/.keep"), options
+          create_file target("#{dir}/.keep"), opts
         end
       end
 
       def boot
-        template 'templates/config/boot.rb.tt', target('config/boot.rb'), options
+        template 'templates/config/boot.rb.tt', target('config/boot.rb'), opts
       end
 
       def db_config
         template 'templates/db/config.yml.tt', target('db/config.yml'),
-          options.merge({ db: name })
+          opts.merge({ db: name })
       end
 
       def script_file
-        template 'templates/script.rb.tt', "#{target(name)}.rb", options
+        template 'templates/script.rb.tt', "#{target(name)}.rb", opts
       end
 
       def initialize_repo
         return unless options[:init_repo]
 
-        inside target, options do
-          run 'git init'
+        inside target, opts do
+          Nrb.silently verbose: options[:verbose] do
+            run 'git init'
+          end
         end
       end
 
       def bundle_install
         return unless options[:bundle_install]
 
-        inside target, options do
-          run 'bundle install'
+        inside target, opts do
+          Bundler.with_clean_env do
+            Nrb.silently verbose: options[:verbose] do
+              run 'bundle install'
+            end
+          end
         end
       end
 
