@@ -1,6 +1,6 @@
-# Ninja Ruby - Nrb [![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb)
+# Ninja Ruby - `nrb` [![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb) [![Coverage Status](https://coveralls.io/repos/github/shuriu/nrb/badge.svg?branch=master)](https://coveralls.io/github/shuriu/nrb?branch=master)
 
-Ninja Ruby scripts with easy persistence for your experimenting needs
+Ninja Ruby scripts with easy persistence for your experimenting needs.
 
 # Idea
 
