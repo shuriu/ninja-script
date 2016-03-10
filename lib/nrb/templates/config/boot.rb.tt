@@ -1,6 +1,6 @@
 # Setup the listed gems in the gemfile
 require 'bundler/setup'
-<%# TODO: Maybe add gemfile groups? %>
+
 # Actually require the gems
 Bundler.require(:default)
 

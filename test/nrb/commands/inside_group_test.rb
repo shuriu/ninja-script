@@ -11,7 +11,7 @@ class Nrb::Commands::InsideGroupTest < Minitest::Test
     end
   end
 
-  def test_check_inside_when_inside
+  def test_check_inside_when_outside
     assert_raises Nrb::OutsideRootError do
       Nrb::Commands::InsideGroup.new.invoke(:check_inside?)
     end

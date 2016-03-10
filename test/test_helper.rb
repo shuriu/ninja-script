@@ -32,7 +32,7 @@ class Minitest::Test
     File.expand_path("fixtures/#{name}", __dir__)
   end
 
-  def bin_nrb(*args, **options)
+  def bin_nrb(*args)
     IO.popen([@@bin_file, *args.map!(&:to_s)]).read.strip
   end
 

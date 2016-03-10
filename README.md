@@ -1,4 +1,6 @@
-# Ninja Ruby - `nrb` [![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb) [![Coverage Status](https://coveralls.io/repos/github/shuriu/nrb/badge.svg?branch=master)](https://coveralls.io/github/shuriu/nrb?branch=master)
+# Ninja Ruby - `nrb` [![Gem Version](https://badge.fury.io/rb/nrb.svg)](https://badge.fury.io/rb/nrb)
+
+[![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb) [![Coverage Status](https://coveralls.io/repos/github/shuriu/nrb/badge.svg?branch=master)](https://coveralls.io/github/shuriu/nrb?branch=master) [![Code Climate](https://codeclimate.com/github/shuriu/nrb/badges/gpa.svg)](https://codeclimate.com/github/shuriu/nrb) [![Dependency Status](https://gemnasium.com/shuriu/nrb.svg)](https://gemnasium.com/shuriu/nrb)
 
 Ninja Ruby scripts with easy persistence for your experimenting needs.
 
@@ -125,13 +127,12 @@ development:
   database: db/new_script.sqlite3
 ```
 
-## TODO
+## Roadmap
 
-* Tests
-* Support for custom bundler groups
-* Ability to change the persistence adapter
-* Ability to skip persistence altogether
-
+- [x] Tests
+- [ ] Support for custom bundler groups
+- [ ] Ability to change the persistence adapter
+- [ ] Ability to skip persistence altogether
 
 ## Development
 
