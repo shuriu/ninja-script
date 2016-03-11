@@ -1,111 +1,91 @@
-# Ninja Ruby - `nrb` [![Gem Version](https://badge.fury.io/rb/nrb.svg)](https://badge.fury.io/rb/nrb)
-
-[![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb) [![Coverage Status](https://coveralls.io/repos/github/shuriu/nrb/badge.svg?branch=master)](https://coveralls.io/github/shuriu/nrb?branch=master) [![Code Climate](https://codeclimate.com/github/shuriu/nrb/badges/gpa.svg)](https://codeclimate.com/github/shuriu/nrb) [![Dependency Status](https://gemnasium.com/shuriu/nrb.svg)](https://gemnasium.com/shuriu/nrb)
+# `nrb` - Ninja Ruby scripts - [![Gem Version](https://badge.fury.io/rb/nrb.svg)](https://badge.fury.io/rb/nrb)
 
 Ninja Ruby scripts with easy persistence for your experimenting needs.
 
-# Idea
+Do you want to work on some idea that's more than a script but you don't want to generate a fully fleged Rails app?
 
-**TLDR**: `$ nrb new <idea-name>`
+**`nrb`** generates a simple scaffold for your script. Complete with autoloading, custom configurations and persistence. Just like a mini rails.
 
-Say you want to validate some idea. Maybe crawl some page, API, or process some file. Whatever scratches your itch.
+## Getting Started
 
-> Cool, I can get all this data from there. But what do I do with it?
+1. First install the gem:
 
-So you want some kind of persistence?
+        $ gem install nrb
 
-> I'll just dump the data in memory into some array or object, then do some stuff to it later.
+2. Create your new Ninja Ruy project:
 
-But maybe you want to show it to some colleague or your boss.
+        $ nrb new my-project
 
-> Ok I'll dump it into some file.
+  `my-project` is your project name.
 
-Now we're getting somewhere. But it's hard to analyze later. Or you don't want to hit the API again when you run your script.
+3. Change the directory to `my-project` and start hacking:
 
-> Hmm, I'll just dump it in some database!
+        $ cd my-project
 
-And 5 minutes later you realize it's just a simple script. You don't want to mess with all the boilerplate required to setup the db and query it with ugly SQL.
+        ├── config
+        │   ├── boot.rb
+        │   └── nrb.rb
+        ├── db
+        │   └── config.yml
+        ├── models
+        ├── services
+        ├── Gemfile
+        ├── my-project.rb
+        ├── Rakefile
+        └── README.md
 
-Also, as you hit more and more edge cases with your idea, you realize you just have a big `.rb` file with no structure and your idea is hidden inside loops and control structures instead.
+4. Your main file is `my-project.rb`. Add your ideas here. You can also add more gems to the `Gemfile` and they will be automatically required.
 
-> I'll add some structure then: extract some methods into classes and classes into files and...
+  You can also change the `config/nrb.rb` file to add custom configurations.
 
-And now you have to do boilerplate for requiring files..
+  Also, everything you add to `models` and `services` will be required automatically.
 
-> Fuck it, I'll just do a Rails App!
+5. To run your script:
 
-Or you could just use `$ nrb new <idea-name>` and not worry about anything!
+        $ nrb start
 
-## Installation
+  And to start the console with your script loaded:
 
-    $ gem install nrb
+      $ nrb console
 
-## Usage
+## Models
 
-```sh
-$ nrb help
-Commands:
-  nrb [c]onsole                     # Jump into a Pry console with your project loaded. NOTE: Available inside a NinjaRuby project
-  nrb [d]estroy <resource> <name>   # Destroy a generated resource. NOTE: Available inside a NinjaRuby project
-  nrb [g]enerate <resource> <name>  # Generate a resource (models, services). NOTE: Available inside a NinjaRuby project
-  nrb [s]tart                       # Require the main file. NOTE: Available inside a NinjaRuby project
-  nrb help [COMMAND]                # Describe available commands or one specific command
-  nrb new <name-or-path> [OPTIONS]  # Creates a Ninja Ruby Script at the given path
-```
+You can enjoy all the goodness `ActiveRecord` provides, outside Rails, and without the bolierplate needed. The commands are almost the same as in Rails.
 
-Create an app and some resources:
+1. Create the database:
 
-```sh
-$ nrb help new
-Usage:
-  nrb new <name-or-path> [OPTIONS]
+        $ rake db:create
 
-Options:
-  -r, [--init-repo], [--no-init-repo]            # Initialize a repository at the target location
-                                                 # Default: true
-  -b, [--bundle-install], [--no-bundle-install]  # Run bundle install after generating the skeleton
-                                                 # Default: true
-Creates a Ninja Ruby Script at the given path
+2. Create a model:
 
-$ nrb new user_importer
-      create  user_importer/.gitignore
-      create  user_importer/README.md
-      create  user_importer/Gemfile
-      create  user_importer/Rakefile
-      create  user_importer/config/nrb.rb
-      create  user_importer/models/.keep
-      create  user_importer/services/.keep
-      create  user_importer/config/boot.rb
-      create  user_importer/db/config.yml
-      create  user_importer/user_importer.rb
-$ cd user_importer
+        $ nrb g model user username email
 
-$ rake db:create
+        db/migrate
+        └── 20160311091641_create_users.rb
+        models
+        └── user.rb
 
-$ nrb g model user first_name last_name email
-      create  models/user.rb
-         run  rake db:new_migration name=create_users options='first_name last_name email' from "."
-      create  db/migrate/20160309074029_create_users.rb
 
-$ rake db:migrate
+  You can then edit the migration and the model as you please.
 
-$ nrb console
+3. Finally run the migration!
 
-[1] pry(main)> User.create(first_name: 'Gandalf', last_name: 'The Grey', email: 'gandalf@example.com')
-D, [2016-03-09T09:44:12.434679 #21739] DEBUG -- :    (0.1ms)  begin transaction
-D, [2016-03-09T09:44:12.440635 #21739] DEBUG -- :   SQL (0.5ms)  INSERT INTO "users" ("first_name", "last_name", "email") VALUES (?, ?, ?)  [["first_name", "Gandalf"], ["last_name", "The Grey"], ["email", "gandalf@example.com"]]
-D, [2016-03-09T09:44:12.444638 #21739] DEBUG -- :    (3.6ms)  commit transaction
-=> #<User:0x005582ec4153d8 id: 1, first_name: "Gandalf", last_name: "The Grey", email: "gandalf@example.com">
+        $ rake db:migrate
 
-[2] pry(main)> User.all
-D, [2016-03-09T09:45:11.252371 #21739] DEBUG -- :   User Load (0.2ms)  SELECT "users".* FROM "users"
-=> [#<User:0x005582ed31c3e0 id: 1, first_name: "Gandalf", last_name: "The Grey", email: "gandalf@example.com">]
+## Services
 
-```
+These are just simple classes with the added benefit of being automatically Required in your main script file (the `my-project.rb` from the examples above).
+
+To add a service:
+
+        $ nrb g service user_service
+
+        services
+        └── user_service.rb
 
 ## Configuration
 
-To add custom configurations or change existing ones, you can modify `config/nrb.rb`:
+You can add or change configurations inside `config/nrb.rb`:
 
 ```ruby
 Nrb.configure do |config|
@@ -114,25 +94,28 @@ Nrb.configure do |config|
 
   # Default resources to autoload
   # config.resources = %w(models services)
+
+  # My custom config
+  config.my_custom_config = :foo
 end
 ```
 
-To configure the default sqlite db, you can update `db/config.yml`:
-
-```yaml
-development:
-  adapter:  sqlite3
-  pool:     5
-  timeout:  5000
-  database: db/new_script.sqlite3
-```
+You can access them by simply calling: `Nrb.config.my_custom_config`.
 
 ## Roadmap
 
-- [x] Tests
-- [ ] Support for custom bundler groups
-- [ ] Ability to change the persistence adapter
-- [ ] Ability to skip persistence altogether
+- [ ] Add generator for tests.
+- [ ] Add support for custom bundler groups.
+- [ ] Add ability to change the persistence adapter. Currently `sqlite` is the default.
+- [ ] Add ability to skip persistence altogether.
+
+## Contributing
+
+General feedback, bug reports and pull requests are more than welcome!
+
+## Status
+
+[![Build Status](https://travis-ci.org/shuriu/nrb.svg?branch=master)](https://travis-ci.org/shuriu/nrb) [![Coverage Status](https://coveralls.io/repos/github/shuriu/nrb/badge.svg?branch=master)](https://coveralls.io/github/shuriu/nrb?branch=master) [![Code Climate](https://codeclimate.com/github/shuriu/nrb/badges/gpa.svg)](https://codeclimate.com/github/shuriu/nrb) [![Dependency Status](https://gemnasium.com/shuriu/nrb.svg)](https://gemnasium.com/shuriu/nrb)
 
 ## Development
 
@@ -140,11 +123,6 @@ Run `rake test` to run the tests. You can also run `bin/console` for an interact
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/shuriu/nrb.
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
