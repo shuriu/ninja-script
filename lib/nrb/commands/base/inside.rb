@@ -14,7 +14,8 @@ module Nrb
         command = self.class.to_s.split('::').last
 
         fail Nrb::OutsideRootError,
-          "You need to be inside a NinjaRuby folder to run the #{command} command."
+          'You need to be inside a NinjaRuby folder' \
+          "to run the #{command} command."
       end
     end
   end

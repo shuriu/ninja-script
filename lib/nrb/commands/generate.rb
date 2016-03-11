@@ -7,7 +7,7 @@ module Nrb
 
       def generate_resource
         template "templates/#{resource}.rb.tt", target("#{name.underscore}.rb"),
-          opts.merge({ name: name.camelize })
+          opts.merge(name: name.camelize)
       end
 
       def generate_table
@@ -25,7 +25,7 @@ module Nrb
       def generate_table_file
         migration_name = "create_#{name.underscore.pluralize}"
         rake_options   = args.join(' ')
-        command        = "bundle exec rake db:new_migration"
+        command        = 'bundle exec rake db:new_migration'
         run "#{command} name=#{migration_name} options='#{rake_options}'", opts
       end
     end

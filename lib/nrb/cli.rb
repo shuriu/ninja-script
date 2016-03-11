@@ -4,28 +4,34 @@ require 'thor'
 require 'nrb/commands/all'
 
 module Nrb
+  # Command line interface entry point.
   class CLI < Thor
     class_option :verbose, type: :boolean, default: true,
       desc:    'Verbose mode.',
       aliases: '-v'
 
-    register Nrb::Commands::Script, 'new', 'new <name-or-path> [OPTIONS]',
+    register Nrb::Commands::Script, 'new',
+      'new <name-or-path> [OPTIONS]',
       Nrb::Commands::Script.desc
     tasks['new'].options = Nrb::Commands::Script.class_options
 
-    register Nrb::Commands::Starter, 'start', '[s]tart',
+    register Nrb::Commands::Starter, 'start',
+      '[s]tart',
       Nrb::Commands::Starter.desc
     map 's' => :start
 
-    register Nrb::Commands::Console, 'console', '[c]onsole',
+    register Nrb::Commands::Console, 'console',
+      '[c]onsole',
       Nrb::Commands::Console.desc
     map 'c' => :console
 
-    register Nrb::Commands::Generate, 'generate', '[g]enerate <resource> <name>',
+    register Nrb::Commands::Generate, 'generate',
+      '[g]enerate <resource> <name>',
       Nrb::Commands::Generate.desc
     map 'g' => :generate
 
-    register Nrb::Commands::Destroy, 'destroy', '[d]estroy <resource> <name>',
+    register Nrb::Commands::Destroy, 'destroy',
+      '[d]estroy <resource> <name>',
       Nrb::Commands::Destroy.desc
     map 'd' => :destroy
   end

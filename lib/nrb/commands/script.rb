@@ -15,12 +15,12 @@ module Nrb
 
       def readme
         template 'templates/README.md.tt', target('README.md'),
-          opts.merge({ title: name, version: Nrb::VERSION })
+          opts.merge(title: name, version: Nrb::VERSION)
       end
 
       def gemfile
         template 'templates/Gemfile.tt', target('Gemfile'),
-          opts.merge({ nrb_gem: nrb_gem })
+          opts.merge(nrb_gem: nrb_gem)
       end
 
       def rakefile
@@ -29,7 +29,7 @@ module Nrb
 
       def config_nrb
         template 'templates/config/nrb.rb.tt', target('config/nrb.rb'),
-          opts.merge({ resources: Nrb.resources })
+          opts.merge(resources: Nrb.resources)
       end
 
       def resources
@@ -44,7 +44,7 @@ module Nrb
 
       def db_config
         template 'templates/db/config.yml.tt', target('db/config.yml'),
-          opts.merge({ db: name })
+          opts.merge(db: name)
       end
 
       def script_file

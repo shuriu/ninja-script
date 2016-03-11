@@ -36,7 +36,7 @@ module Nrb
       gemfile = File.join(Dir.pwd, 'Gemfile')
       return false unless File.exist? gemfile
 
-      !!(File.read(gemfile) =~ /gem\s+['"]nrb['"]/)
+      !(File.read(gemfile) =~ /gem\s+['"]nrb['"]/).nil?
     end
 
     def resources

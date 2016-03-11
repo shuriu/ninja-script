@@ -22,10 +22,9 @@ module Nrb
         root = Nrb.root
         assumed_file_name = "#{root.split('/').last}.rb"
         assumed_file_path = File.join(root, assumed_file_name)
+        return false unless File.exist?(assumed_file_path)
 
-        if File.exist?(assumed_file_path)
-          require assumed_file_path
-        end
+        require assumed_file_path
       end
     end
   end

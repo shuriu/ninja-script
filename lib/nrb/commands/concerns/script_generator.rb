@@ -20,7 +20,8 @@ module Nrb
           aliases: '-b'
 
         class_option :local, default: false, type: :boolean,
-          desc: 'Add local path of the gem when generating the Gemfile. Useful for testing.'
+          desc: 'Add local path of the gem when ' \
+                'generating the Gemfile. Useful for testing.'
       end
 
       private
