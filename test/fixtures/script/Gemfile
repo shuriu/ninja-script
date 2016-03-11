@@ -1,5 +1,3 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
-
 gem 'nrb', '1.1.0', path: '../../..'

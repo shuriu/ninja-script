@@ -15,7 +15,7 @@ module Nrb
         rake_options   = args.join(' ')
 
         inside Nrb.root, opts do
-          Nrb.silently(opts) do
+          Nrb::Utils.silently(opts) do
             run "bundle exec rake db:new_migration name=#{migration_name} options='#{rake_options}'",
               opts
           end

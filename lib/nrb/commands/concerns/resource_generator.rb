@@ -9,7 +9,7 @@ module Nrb
         argument :resource, type: :string, required: true,
           desc:   'resource type',
           banner: 'resource',
-          enum:   Nrb.config.resources.map(&:singularize)
+          enum:   Nrb.resources.map(&:singularize)
 
         argument :name, type: :string, required: true,
           desc:   'name of the resource',

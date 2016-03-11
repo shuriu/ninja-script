@@ -19,7 +19,7 @@ ActiveRecord::Base.configurations = YAML.load_file('db/config.yml')
 ActiveRecord::Base.establish_connection(:development)
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-# Finally require files inside config.resources
-Nrb.config.resources.each do |dir|
+# Finally require files inside resources
+Nrb.config.autoload.each do |dir|
   Dir[File.join(dir, '*.rb')].each { |f| require(f) }
 end

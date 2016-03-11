@@ -57,7 +57,7 @@ class Nrb::Commands::ScriptTest < Minitest::Test
 
   def test_generated_resources
     @invoker.invoke(:resources)
-    Nrb.config.resources.each do |res|
+    Nrb.resources.each do |res|
       file_path = File.join(@full_path, res, '.keep')
       assert_equal true, File.exist?(file_path)
     end

@@ -6,12 +6,16 @@ require 'standalone_migrations'
 require 'sqlite3'
 require 'nrb/errors'
 require 'nrb/version'
+require 'nrb/constants'
+require 'nrb/utils'
 
 module Nrb
+  RESOURCES = %w(models services).freeze
+
   class Configuration < OpenStruct
     def initialize(*args)
       super
-      self.resources = %w(models services)
+      self.autoload = Nrb::RESOURCES
     end
   end
 
@@ -34,13 +38,8 @@ module Nrb
       !!(File.read(gemfile) =~ /gem\s+['"]nrb['"]/)
     end
 
-    def silently(verbose: false)
-      yield and return if verbose
-
-      original_stdout = $stdout.clone
-      $stdout.reopen '/dev/null'
-      yield
-      $stdout.reopen original_stdout
+    def resources
+      RESOURCES
     end
   end
 end

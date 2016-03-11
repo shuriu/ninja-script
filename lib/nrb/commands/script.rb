@@ -39,11 +39,11 @@ module Nrb
 
       def config_nrb
         template 'templates/config/nrb.rb.tt', target('config/nrb.rb'),
-          opts.merge({ resources: Nrb.config.resources })
+          opts.merge({ resources: Nrb.resources })
       end
 
       def resources
-        Nrb.config.resources.each do |dir|
+        Nrb.resources.each do |dir|
           create_file target("#{dir}/.keep"), opts
         end
       end
@@ -65,7 +65,7 @@ module Nrb
         return unless options[:init_repo]
 
         inside target, opts do
-          Nrb.silently verbose: options[:verbose] do
+          Nrb::Utils.silently verbose: options[:verbose] do
             run 'git init'
           end
         end
@@ -76,7 +76,7 @@ module Nrb
 
         inside target, opts do
           Bundler.with_clean_env do
-            Nrb.silently verbose: options[:verbose] do
+            Nrb::Utils.silently verbose: options[:verbose] do
               run 'bundle install'
             end
           end

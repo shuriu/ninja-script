@@ -15,7 +15,7 @@ class NrbTest < Minitest::Test
   end
 
   def test_default_resources
-    refute_empty Nrb.config.resources
+    refute_empty Nrb.resources
   end
 
   def test_root_by_config
