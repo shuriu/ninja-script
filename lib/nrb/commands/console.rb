@@ -1,5 +1,6 @@
 module Nrb
   module Commands
+    # Command that loads the script and starts a pry console.
     class Console < Commands::Inside
       desc 'Jump into a Pry console with your project loaded.'
 

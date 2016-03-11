@@ -1,10 +1,12 @@
 module Nrb
   module Commands
+    # This class fires a task that checks if the following command
+    # is done on the correct resource type.
     class Resource < Commands::Inside
       include ResourceGenerator
 
       def self.valid_resources
-        arguments.find { |a| a.name == 'resource' }.enum
+        arguments.find { |arg| arg.name == 'resource' }.enum
       end
 
       def ensure_valid_resource

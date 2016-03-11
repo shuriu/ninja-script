@@ -1,5 +1,7 @@
 module Nrb
   module Commands
+    # This class fires a task that checks if the following command
+    # is done inside the root of the project.
     class Inside < Commands::Base
       def ensure_inside_root
         return true if Nrb.inside?

@@ -6,12 +6,13 @@ require 'standalone_migrations'
 require 'sqlite3'
 require 'nrb/errors'
 require 'nrb/version'
-require 'nrb/constants'
 require 'nrb/utils'
 
+# The main namespace for this gem's logic.
 module Nrb
   RESOURCES = %w(models services).freeze
 
+  # Class that provides a configuration object to the main namespace.
   class Configuration < OpenStruct
     def initialize(*args)
       super

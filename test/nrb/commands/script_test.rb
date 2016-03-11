@@ -63,24 +63,61 @@ class Nrb::Commands::ScriptTest < Minitest::Test
     end
   end
 
-  def test_bundle_install
+  def test_local_option
+    other_invoker = Nrb::Commands::Script.new([@full_path], {
+      verbose: false, init_repo: false, bundle_install: false, local: true
+    })
+    other_invoker.invoke(:gemfile)
+    regex = %r('nrb'.*'#{Nrb::VERSION}'.*path:)
+    refute_empty grep_gemfile_for(regex)
+  end
+
+  def test_local_option_false
+    other_invoker = Nrb::Commands::Script.new([@full_path], {
+      verbose: false, init_repo: false, bundle_install: false, local: false
+    })
+    other_invoker.invoke(:gemfile)
+    regex = %r('nrb'.*'#{Nrb::VERSION}'.*path:)
+    assert_empty grep_gemfile_for(regex)
+  end
+
+  def test_bundle_install_option
     other_invoker = Nrb::Commands::Script.new([@full_path], {
       verbose: false, init_repo: false, bundle_install: true, local: true
     })
-
     other_invoker.invoke(:gemfile)
     other_invoker.invoke(:bundle_install)
-
     assert_equal true, File.exist?(File.join(@full_path, 'Gemfile.lock'))
   end
 
-  def test_initialize_repo
+  def test_bundle_install_option_false
+    other_invoker = Nrb::Commands::Script.new([@full_path], {
+      verbose: false, init_repo: false, bundle_install: false, local: true
+    })
+    other_invoker.invoke(:gemfile)
+    other_invoker.invoke(:bundle_install)
+    assert_equal false, File.exist?(File.join(@full_path, 'Gemfile.lock'))
+  end
+
+  def test_initialize_repo_option
     other_invoker = Nrb::Commands::Script.new([@full_path], {
       verbose: false, init_repo: true, bundle_install: false
     })
-
     other_invoker.invoke(:initialize_repo)
-
     assert_equal true, Dir.exist?(File.join(@full_path, '.git'))
+  end
+
+  def test_initialize_repo_option_false
+    other_invoker = Nrb::Commands::Script.new([@full_path], {
+      verbose: false, init_repo: false, bundle_install: false
+    })
+    other_invoker.invoke(:initialize_repo)
+    assert_equal false, Dir.exist?(File.join(@full_path, '.git'))
+  end
+
+  private
+
+  def grep_gemfile_for(regex)
+    File.open(File.join(@full_path, 'Gemfile')).grep(regex)
   end
 end

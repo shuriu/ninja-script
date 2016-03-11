@@ -2,6 +2,8 @@ require 'active_support/concern'
 
 module Nrb
   module Commands
+    # This module adds the :resource, and the :name to resource generator
+    # commands (generate or destroy).
     module ResourceGenerator
       extend ActiveSupport::Concern
 

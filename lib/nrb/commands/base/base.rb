@@ -1,5 +1,6 @@
 module Nrb
   module Commands
+    # This class is the base class for other thor groups.
     class Base < Thor::Group
       include Thor::Actions
 
@@ -18,11 +19,12 @@ module Nrb
       private
 
       def require_main_file
-        assumed_file_name = "#{Nrb.root.split('/').last}.rb"
-        assumed_file_path = File.join(Nrb.root, assumed_file_name)
+        root = Nrb.root
+        assumed_file_name = "#{root.split('/').last}.rb"
+        assumed_file_path = File.join(root, assumed_file_name)
 
         if File.exist?(assumed_file_path)
-          require File.join(Nrb.root, assumed_file_name)
+          require assumed_file_path
         end
       end
     end
