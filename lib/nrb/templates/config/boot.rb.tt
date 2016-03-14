@@ -20,6 +20,6 @@ ActiveRecord::Base.establish_connection(:development)
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 # Finally require files inside resources
-Nrb.config.autoload.each do |dir|
+Nrb.config.autoload_paths.each do |dir|
   Dir[File.join(dir, '*.rb')].each { |f| require(f) }
 end

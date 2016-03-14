@@ -2,7 +2,7 @@
 require 'bundler/setup'
 
 # Actually require the gems
-Bundler.require(:default)
+Bundler.require
 
 # Set the project root
 Nrb.config.root = File.expand_path('..', __dir__)
@@ -20,6 +20,6 @@ ActiveRecord::Base.establish_connection(:development)
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 # Finally require files inside resources
-Nrb.resources.each do |dir|
+Nrb.config.autoload_paths.each do |dir|
   Dir[File.join(dir, '*.rb')].each { |f| require(f) }
 end

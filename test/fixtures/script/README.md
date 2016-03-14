@@ -1,3 +1,3 @@
 # script
 
-###### Generated with `nrb` v.1.1.0
+###### Generated with `nrb` v.1.1.1

@@ -21,7 +21,7 @@ module Nrb
   class Configuration < OpenStruct
     def initialize(*args)
       super
-      self.autoload = Nrb::RESOURCES
+      self.autoload_paths = Nrb::RESOURCES
     end
   end
 

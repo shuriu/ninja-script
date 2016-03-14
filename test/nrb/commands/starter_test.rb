@@ -8,7 +8,7 @@ class Nrb::Commands::StarterTest < Minitest::Test
     end
   end
 
-  def test_that_it_requires_the_directories_inside_autoload
+  def test_that_it_requires_the_directories_inside_autoload_paths
     Dir.chdir fixture_path do
       Nrb::Commands::Starter.new.invoke('start')
       assert_equal 'constant', defined?(User)
