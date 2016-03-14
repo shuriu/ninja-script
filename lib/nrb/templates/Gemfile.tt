@@ -1,3 +1,7 @@
 source 'https://rubygems.org'
 
 <%= config[:nrb_gem] %>
+
+# Debugging
+gem 'pry'
+gem 'pry-byebug'

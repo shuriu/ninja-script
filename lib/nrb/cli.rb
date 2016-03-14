@@ -1,5 +1,3 @@
-require 'pry'
-require 'binding_of_caller'
 require 'thor'
 require 'nrb/commands/all'
 

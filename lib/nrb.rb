@@ -1,9 +1,14 @@
+begin
+  require 'pry'
+  require 'pry-byebug'
+rescue LoadError => e
+  puts e
+end
+
 require 'ostruct'
-require 'pry'
-require 'binding_of_caller'
-require 'pry-byebug'
 require 'standalone_migrations'
 require 'sqlite3'
+
 require 'nrb/errors'
 require 'nrb/version'
 require 'nrb/utils'

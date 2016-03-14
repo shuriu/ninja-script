@@ -2,15 +2,11 @@ module Nrb
   module Commands
     # Command that loads the script and starts a pry console.
     class Console < Commands::Inside
-      desc 'Jump into a Pry console with your project loaded.'
-
-      class_option :pretend, default: false, type: :boolean,
-        desc: 'Pretend opening the console. Useful for testing.'
+      desc 'Jump into a console with your project loaded.'
 
       def start
-        required = require_main_file
-        Pry.start unless options[:pretend]
-        required
+        require_main_file
+        Nrb::Utils.console.start
       end
     end
   end

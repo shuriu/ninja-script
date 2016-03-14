@@ -10,5 +10,10 @@ module Nrb
       yield
       $stdout.reopen(original)
     end
+
+    # Use Pry if available
+    def console
+      defined?(Pry) ? Pry : IRB
+    end
   end
 end
