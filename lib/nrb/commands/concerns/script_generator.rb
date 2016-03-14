@@ -49,7 +49,7 @@ module Nrb
       end
 
       def add_local_path(text)
-        local_gem_path = Pathname.new(File.expand_path('../../..', __dir__))
+        local_gem_path = Pathname.new(File.expand_path('../../../..', __dir__))
         target_path    = Pathname.new(target)
         relative_path  = local_gem_path.relative_path_from(target_path)
         text << ", path: '#{relative_path}'"
