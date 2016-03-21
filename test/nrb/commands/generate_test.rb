@@ -31,9 +31,12 @@ class Nrb::Commands::GenerateTest < Minitest::Test
   end
 
   def test_generate_model_migration
-    @generator.invoke(:generate_table)
-    generated_file = Dir["**/*_create_#{@name}*.rb"].first
-    assert_equal true, File.exist?(generated_file)
-    FileUtils.rm(generated_file)
+    Bundler.with_clean_env do
+      @generator.invoke(:generate_table)
+      generated_file = Dir["**/*_create_#{@name}*.rb"].first.to_s
+      exists = File.exist?(generated_file)
+      assert_equal true, exists
+      FileUtils.rm(generated_file) if exists
+    end
   end
 end

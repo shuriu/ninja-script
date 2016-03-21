@@ -105,7 +105,7 @@ You can access them by simply calling: `Nrb.config.my_custom_config`.
 ## Roadmap
 
 - [ ] Add generator for tests.
-- [ ] Add support for custom bundler groups.
+- [x] Add support for custom bundler groups.
 - [ ] Add ability to change the persistence adapter. Currently `sqlite` is the default.
 - [ ] Add ability to skip persistence altogether.
 

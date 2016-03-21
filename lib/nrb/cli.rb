@@ -1,4 +1,3 @@
-require 'thor'
 require 'nrb/commands/all'
 
 module Nrb

@@ -2,13 +2,11 @@ require 'test_helper'
 
 class Nrb::CLITest < Minitest::Test
   def test_has_help_text
-    text = bin_nrb
-    refute_empty text
+    refute_empty nrb
   end
 
   def test_has_valid_version
-    version = bin_nrb '-v'
-    assert_equal Nrb::VERSION, version
+    assert_equal Nrb::VERSION, nrb('-v')
   end
 
   def test_has_required_commands

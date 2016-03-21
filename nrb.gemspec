@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "coveralls", "~> 0.8.13"
   spec.add_development_dependency "pry", "~> 0.10.3"
   spec.add_development_dependency "pry-byebug", "~> 3.3.0"
+  spec.add_dependency "activesupport", "~> 4.2.5.2"
   spec.add_dependency "thor", "~> 0.19.0"
-  spec.add_dependency "standalone_migrations", "~> 4.0.0"
-  spec.add_dependency "sqlite3", "~> 1.3.0"
 end

@@ -24,7 +24,7 @@ module Nrb
         assumed_file_path = File.join(root, assumed_file_name)
         return false unless File.exist?(assumed_file_path)
 
-        require assumed_file_path
+        require(assumed_file_path)
       end
     end
   end

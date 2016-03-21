@@ -1,12 +1,13 @@
-require 'bundler/setup'
 require 'coveralls'
 Coveralls.wear!
-require 'nrb'
 
+require 'bundler/setup'
 require 'minitest/autorun'
 require 'minitest/mock'
 require 'minitest/pride'
 
+
+require 'nrb'
 class Minitest::Test
   @@fixture_name  = 'script'.freeze
   @@tmp_path      = File.expand_path('../tmp', __dir__)
@@ -17,12 +18,11 @@ class Minitest::Test
     File.expand_path("fixtures/#{name}", __dir__)
   end
 
-  def bin_nrb(*args)
-    IO.popen([@@bin_file, *args.map!(&:to_s)]).read.strip
-  end
-
-  def nrb(*args, **options, &block)
-    runner = Nrb::CLI.new(args, options)
-    runner.send(*args, &block)
+  def nrb(*args)
+    output = ''
+    Dir.chdir fixture_path do
+      output = IO.popen([@@bin_file, *args.map(&:to_s)]).read.strip
+    end
+    output
   end
 end

@@ -5,9 +5,11 @@ rescue LoadError => e
   puts e
 end
 
+require 'thor'
+require 'active_support/core_ext/string'
+require 'active_support/concern'
 require 'ostruct'
-require 'standalone_migrations'
-require 'sqlite3'
+require 'pathname'
 
 require 'nrb/errors'
 require 'nrb/version'

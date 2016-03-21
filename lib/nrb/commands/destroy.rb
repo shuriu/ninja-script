@@ -13,7 +13,7 @@ module Nrb
         return false unless resource == 'model'
         prefix = 'db/migrate/*_create_'
         migration_file = Dir["#{prefix}#{name.underscore.pluralize}.rb"].first
-        remove_file(migration_file, opts)
+        remove_file(migration_file, opts) if migration_file
       end
     end
   end

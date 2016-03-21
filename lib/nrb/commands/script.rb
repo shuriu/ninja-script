@@ -1,4 +1,3 @@
-require 'pathname'
 require 'nrb/commands/concerns/script_generator'
 
 module Nrb

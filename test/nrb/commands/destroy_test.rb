@@ -32,13 +32,15 @@ class Nrb::Commands::DestroyTest < Minitest::Test
   end
 
   def test_destroy_migration
-    @generator.invoke(:generate_table)
-    generated_file = Dir["**/*_create_#{@name}*.rb"].first
-    @destroyer.invoke(:destroy_migration)
+    Bundler.with_clean_env do
+      @generator.invoke(:generate_table)
+      generated_file = Dir["**/*_create_#{@name}*.rb"].first.to_s
+      @destroyer.invoke(:destroy_migration)
 
-    # FIXME: Investigate why this is needed
-    FileUtils.rm(generated_file)
+      # FIXME: Investigate why this is needed
+      FileUtils.rm(generated_file) if File.exist?(generated_file)
 
-    assert_equal false, File.exist?(generated_file)
+      assert_equal false, File.exist?(generated_file)
+    end
   end
 end

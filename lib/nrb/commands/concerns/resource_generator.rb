@@ -1,5 +1,3 @@
-require 'active_support/concern'
-
 module Nrb
   module Commands
     # This module adds the :resource, and the :name to resource generator
