@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'nrb', '1.1.1', path: '../../..'
+gem 'nrb', '1.2.0', path: '../../..'
 
 # Persistence
 gem 'standalone_migrations', '~> 4.0.3'
