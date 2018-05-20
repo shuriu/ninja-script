@@ -3,7 +3,7 @@ PATH
   specs:
     nrb (1.2.0)
       activesupport (~> 5.2.0)
-      thor (~> 0.19.0)
+      thor (~> 0.19)
 
 GEM
   remote: https://rubygems.org/
@@ -91,4 +91,4 @@ DEPENDENCIES
   standalone_migrations (~> 5.2.5)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
